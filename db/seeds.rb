@@ -1,6 +1,6 @@
-20.times do
+50.times do
     tweet = Tweet.new(
-        description: Faker::Lorem.sentence,
+        description: Faker::Lorem.paragraph,
         username: Faker::Internet.username,
         image: Faker::Avatar.image
     )

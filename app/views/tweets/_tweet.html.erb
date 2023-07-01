@@ -1,12 +1,23 @@
-<div id="<%= dom_id tweet %>">
-  <p>
-    <strong>Description:</strong>
-    <%= tweet.description %>
-  </p>
-
-  <p>
-    <strong>Username:</strong>
-    <%= tweet.username %>
-  </p>
-
+<h1 class="text-center bg-info text-light"> Tweets <i class="fa-brands fa-twitter fa-lg" style="color: #ffffff;"></i> </h1>
+<div id="tweets" class="d-flex flex-column align-items-center">
+  <% @tweets.each do |tweet| %>
+    <div class="card mx-2 my-2 w-50">
+      <div class="card-body d-flex">
+        <div class="user-image mr-3">
+          <%= image_tag tweet.image, class: "rounded-circle", width: 40, height: 40 %>
+        </div>
+        <div>
+          <h5 class="card-title text-primary mb-1"> <%= tweet.id%> User: <i class="fa-solid fa-star fa-sm" style="color: #85fffd;"></i> @<%= tweet.username %></h5>
+          <p class="card-text"><%= tweet.description %></p>
+            <div class="d-inline-block">
+              <%= link_to "Editar", edit_tweet_path(tweet), class: "btn btn-primary mr-2" %>
+            </div>
+            <div class="d-inline-block">
+              <%= button_to "Eliminar", tweet_path(tweet), class: "btn btn-danger", method: :delete %>
+            </div>
+          <%= tweet.updated_at%>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -1,9 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
 <h1 class="text-center bg-info text-light"> Tweets <i class="fa-brands fa-twitter fa-lg" style="color: #ffffff;"></i> </h1>
-<%= form_with url: tweets_path, method: :get, id: "search-form" do |form| %>
-  <%= form.text_field :query_text, placeholder: t('Query text'), value: params[:query_text], id: "query-text" %>
+<%= form_with url: tweets_path, method: :get, id: "search-form", class: "form-inline justify-content-end" do |form| %>
+  <%= form.text_field :query_text, placeholder: t('Username text'), value: params[:query_text], id: "query-text", class: "form-control form-control-sm mr-2" %>
+  <%= form.submit "Buscar", class: "btn btn-primary btn-sm" %>
 <% end %>
+
+
 
 <div id="tweets" class="d-flex flex-column align-items-center">
   <% @tweets.each do |tweet| %>
@@ -13,16 +16,20 @@
           <%= image_tag tweet.image, class: "rounded-circle", width: 40, height: 40 %>
         </div>
         <div>
-          <h5 class="card-title text-primary mb-1">User: <i class="fa-solid fa-star fa-sm" style="color: #85fffd;"></i> @<%= tweet.username %></h5>
+          <h5 class="card-title text-primary mb-1"> <%= tweet.id%> User: <i class="fa-solid fa-star fa-sm" style="color: #85fffd;"></i> @<%= tweet.username %></h5>
           <p class="card-text"><%= tweet.description %></p>
-          <%= link_to "Show this tweet", tweet, class: "btn btn-primary" %>
+            <div class="d-inline-block">
+              <%= link_to "Editar", edit_tweet_path(tweet), class: "btn btn-primary mr-2" %>
+            </div>
+            <div class="d-inline-block">
+              <%= button_to "Eliminar", tweet_path(tweet), class: "btn btn-danger", method: :delete %>
+            </div>
+          <%= tweet.updated_at%>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 
-
-<%= will_paginate @tweets %>
-
-<p class="text-primary ">Total Pages: <%= @tweets.total_pages %></p>
+<%= link_to "New tweet", new_tweet_path %>
+<%=raw pagy_nav(@pagy)%>
