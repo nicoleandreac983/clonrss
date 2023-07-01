@@ -6,8 +6,7 @@ ruby "3.2.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"
 gem 'faker', '3.0'
-gem 'will_paginate'
-gem 'bootstrap_pagination'
+
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -73,5 +72,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-
-gem "pg_search", "~> 2.3"
+gem 'pg_search', '~> 2.3'
+gem "pagy", "~> 5.10"

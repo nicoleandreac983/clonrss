@@ -1,19 +1,16 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy ]
 
-  def search
-    @tweets = Tweet.all
-    if params[:query_text].present?
-      @tweets = @tweets.search_full_text(params[:query_text])
-    end
-  end
-
   def user_image_url
     Faker::Avatar.image
   end
   # GET /tweets or /tweets.json
   def index
-    @tweets = Tweet.paginate(page: params[:page], per_page: 10)
+    @pagy, @tweets = pagy(Tweet.all)
+    if params[:query_text].present?
+      @pagy, @tweets = pagy(@tweets.search_full_text(params[:query_text]))
+      
+    end 
   end
 
   # GET /tweets/1 or /tweets/1.json
